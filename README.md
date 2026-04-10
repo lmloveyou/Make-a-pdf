@@ -1,19 +1,19 @@
 # Make-a-pdf
 
-Een eenvoudige webtool om meerdere documenten en afbeeldingen samen te voegen tot één PDF.
+A simple web tool for combining multiple documents and images into a single PDF.
 
-## Wat deze tool doet
+## What this tool does
 
-Met deze applicatie kun je:
+With this application, you can:
 
-- meerdere bestanden selecteren
-- de volgorde van de bestanden aanpassen
-- documenten en afbeeldingen combineren in één PDF
-- het resultaat rechtstreeks downloaden in je browser
+- select multiple files
+- change the file order
+- combine documents and images into one PDF
+- download the final result directly in your browser
 
-## Ondersteunde bestanden
+## Supported file types
 
-Deze versie ondersteunt:
+This version supports:
 
 - PDF
 - PNG
@@ -24,27 +24,27 @@ Deze versie ondersteunt:
 - MD
 - DOCX
 
-## Hoe gebruiken
+## How to use
 
-1. Open `index.html` via een lokale server, bijvoorbeeld Live Server.
-2. Klik op `Bestanden kiezen`.
-3. Selecteer de documenten en afbeeldingen die je wilt samenvoegen.
-4. Zet de volgorde juist met de knoppen `Omhoog` en `Omlaag`.
-5. Klik op `Maak PDF`.
-6. De nieuwe PDF wordt automatisch gedownload.
+1. Open `index.html` through a local server such as Live Server.
+2. Click `Bestanden kiezen`.
+3. Select the documents and images you want to merge.
+4. Adjust the order using the `Omhoog` and `Omlaag` buttons.
+5. Click `Maak PDF`.
+6. The new PDF will be downloaded automatically.
 
-## Lokaal starten met npm
+## Run locally with npm
 
-Als je het project liever via Vite start:
+If you prefer to run the project through Vite:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Daarna open je de lokale URL die in de terminal verschijnt.
+Then open the local URL shown in your terminal.
 
-## Projectstructuur
+## Project structure
 
 ```text
 index.html
@@ -52,6 +52,6 @@ src/main.js
 src/style.css
 ```
 
-## Opmerking
+## Note
 
-De verwerking gebeurt lokaal in de browser. Je bestanden worden dus niet naar een externe server gestuurd.
+All processing happens locally in the browser. Your files are not uploaded to an external server.
