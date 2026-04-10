@@ -61,6 +61,8 @@ fileInput.addEventListener('change', (event) => {
     })
   }
 
+  sortFilesByName()
+
   fileInput.value = ''
   renderList()
   setStatus(`${files.length} bestand(en) klaar om samen te voegen.`, 'info')
@@ -96,8 +98,9 @@ mergeButton.addEventListener('click', async () => {
     setStatus('Je PDF is klaar en werd gedownload.', 'success')
   } catch (error) {
     console.error(error)
+    const message = error instanceof Error ? error.message : String(error)
     setStatus(
-      `Samenvoegen mislukt: ${error instanceof Error ? error.message : 'onbekende fout'}`,
+      `Samenvoegen mislukt: ${message}`,
       'error',
     )
   } finally {
@@ -154,6 +157,15 @@ function renderList() {
   })
 }
 
+function sortFilesByName() {
+  files.sort((left, right) =>
+    left.file.name.localeCompare(right.file.name, undefined, {
+      numeric: true,
+      sensitivity: 'base',
+    }),
+  )
+}
+
 async function appendFileToPdf(pdfDoc, font, file) {
   const extension = getExtension(file.name)
 
@@ -169,7 +181,7 @@ async function appendFileToPdf(pdfDoc, font, file) {
   }
 
   if (isImageFile(file, extension)) {
-    await appendImageToPdf(pdfDoc, file, extension)
+    await appendImageToPdf(pdfDoc, file)
     return
   }
 
@@ -187,15 +199,10 @@ async function appendFileToPdf(pdfDoc, font, file) {
   throw new Error(`Bestandstype niet ondersteund: ${file.name}`)
 }
 
-async function appendImageToPdf(pdfDoc, file, extension) {
+async function appendImageToPdf(pdfDoc, file) {
   const image = await loadRenderableImage(file)
-  const bytes = extension === 'png' || extension === 'jpg' || extension === 'jpeg'
-    ? await file.arrayBuffer()
-    : await rasterizeImage(image.element)
-  const embeddedImage =
-    extension === 'jpg' || extension === 'jpeg'
-      ? await pdfDoc.embedJpg(bytes)
-      : await pdfDoc.embedPng(bytes)
+  const bytes = await rasterizeImage(image.element)
+  const embeddedImage = await pdfDoc.embedPng(bytes)
 
   const page = pdfDoc.addPage([595.28, 841.89])
   const margin = 36
@@ -322,9 +329,16 @@ async function rasterizeImage(image) {
 
   context.drawImage(image, 0, 0)
 
-  const dataUrl = canvas.toDataURL('image/png')
-  const response = await fetch(dataUrl)
-  return response.arrayBuffer()
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(async (blob) => {
+      if (!blob) {
+        reject(new Error('Afbeelding kon niet worden omgezet naar PNG voor de PDF.'))
+        return
+      }
+
+      resolve(await blob.arrayBuffer())
+    }, 'image/png')
+  })
 }
 
 function isImageFile(file, extension) {
