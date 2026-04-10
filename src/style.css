@@ -1,0 +1,233 @@
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #112033;
+  background:
+    radial-gradient(circle at top left, rgba(255, 221, 169, 0.9), transparent 35%),
+    linear-gradient(160deg, #fff7ec 0%, #eef5ff 48%, #dfeaf4 100%);
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.shell {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.hero-card,
+.workspace {
+  border: 1px solid rgba(17, 32, 51, 0.08);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 60px rgba(25, 53, 92, 0.12);
+}
+
+.hero-card {
+  padding: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: #9a5f10;
+  font-weight: 700;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 14ch;
+  margin-bottom: 12px;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.intro,
+.workspace-header p,
+.support-text,
+.file-copy span {
+  color: #415269;
+}
+
+.intro {
+  max-width: 60ch;
+  margin-bottom: 24px;
+  font-size: 1.05rem;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+#file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.upload-button,
+.primary-button,
+.ghost-button,
+.file-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.upload-button,
+.primary-button {
+  background: #112033;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(17, 32, 51, 0.18);
+}
+
+.upload-button:hover,
+.primary-button:hover,
+.ghost-button:hover,
+.file-actions button:hover {
+  transform: translateY(-1px);
+}
+
+.ghost-button,
+.file-actions button {
+  background: #edf2f7;
+  color: #112033;
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.support-text {
+  margin: 16px 0 0;
+  font-size: 0.95rem;
+}
+
+.workspace {
+  margin-top: 24px;
+  padding: 24px;
+}
+
+.workspace-header {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.workspace-header h2 {
+  margin-bottom: 4px;
+}
+
+.status-panel {
+  margin: 20px 0;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #f5f7fb;
+  color: #31445f;
+}
+
+.status-panel[data-kind='busy'] {
+  background: #fff2d4;
+  color: #7d4e05;
+}
+
+.status-panel[data-kind='success'] {
+  background: #def7e7;
+  color: #0d6a34;
+}
+
+.status-panel[data-kind='error'] {
+  background: #fde3e2;
+  color: #991b1b;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.file-item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(17, 32, 51, 0.08);
+}
+
+.file-copy strong,
+.file-copy span {
+  display: block;
+}
+
+.file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 700px) {
+  .shell {
+    width: min(100% - 20px, 1100px);
+    padding-top: 20px;
+  }
+
+  .hero-card,
+  .workspace {
+    border-radius: 22px;
+    padding: 20px;
+  }
+
+  .workspace-header,
+  .file-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .file-actions {
+    width: 100%;
+  }
+}
